@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+from app.db.session import init_db
 from app.services.model_service import model_service
 from app.api.health_routes import router as health_router
 from app.api.model_routes import router as model_router
@@ -19,8 +20,9 @@ logger = logging.getLogger("FED_MIND_SERVER")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Load multimodal model onto CUDA/CPU
+    # Startup: Inisialisasi Database & Model
     logger.info("Initializing FED-MIND Centralized Server...")
+    init_db()
     success = model_service.load_model()
     if not success:
         logger.warning("Model could not be loaded at startup! Check checkpoint file.")

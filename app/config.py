@@ -18,13 +18,33 @@ class Settings(BaseSettings):
     port: int = 8000
     device: str = "cuda"
 
-    model_checkpoint_path: str = "storage/models/best_global_model.pt"
+    model_type: str = "fl_iid"  # "centralized" | "fl_iid" | "fl_non_iid"
+    model_checkpoint_path: str = "storage/models/fl_iid/model.pt"
     model_config_path: str = "configs/federated.yaml"
+    database_url: str = "sqlite:///storage/fedmind.db"
     
+    @property
+    def base_dir(self) -> Path:
+        return BASE_DIR
+
     @property
     def resolved_checkpoint_path(self) -> Path:
         p = Path(self.model_checkpoint_path)
-        return p if p.is_absolute() else (BASE_DIR / p)
+        if not p.is_absolute():
+            p = BASE_DIR / p
+        if not p.exists():
+            # Fallback to model_type directory
+            fallback = BASE_DIR / "storage" / "models" / self.model_type / "model.pt"
+            if fallback.exists():
+                return fallback
+        return p
+
+    @property
+    def resolved_xai_baseline_path(self) -> Path:
+        specific = BASE_DIR / "storage" / "models" / self.model_type / "xai_baseline.pt"
+        if specific.exists():
+            return specific
+        return BASE_DIR / "storage" / "models" / "xai_baseline_latents.pt"
 
     @property
     def resolved_config_path(self) -> Path:

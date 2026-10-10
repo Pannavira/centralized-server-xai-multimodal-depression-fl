@@ -9,3 +9,6 @@ storage/xai/*
 .pytest_cache/
 .coverage
 htmlcov/
+*.db
+*.sqlite
+*.sqlite3

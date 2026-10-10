@@ -1,3 +1,4 @@
+import hashlib
 import logging
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
@@ -14,6 +15,7 @@ logger = logging.getLogger("FED_MIND_SERVER")
 class ModelService:
     """
     Singleton service untuk mengelola siklus hidup model multimodal FED-MIND di memory server.
+    Mendukung isolasi model_type (centralized / fl_iid / fl_non_iid) dan tracking checksum SHA-256.
     """
 
     def __init__(self) -> None:
@@ -22,6 +24,8 @@ class ModelService:
         self._is_loaded: bool = False
         self._total_params: int = 0
         self._checkpoint_file: str = ""
+        self._checkpoint_checksum: str = ""
+        self._model_type: str = settings.model_type
 
     def load_model(self, force_reload: bool = False) -> bool:
         if self._is_loaded and not force_reload:
@@ -44,7 +48,8 @@ class ModelService:
         else:
             self._device = torch.device("cpu")
 
-        logger.info(f"Loading FED-MIND Multimodal Model on device: {self._device}...")
+        self._model_type = settings.model_type
+        logger.info(f"Loading FED-MIND Multimodal Model [{self._model_type}] on device: {self._device}...")
 
         # 2. Build Model Architecture
         with open(cfg_path, "r", encoding="utf-8") as f:
@@ -67,10 +72,17 @@ class ModelService:
 
         self._total_params = sum(p.numel() for p in self._model.parameters())
         self._checkpoint_file = str(ckpt_path.name)
+        
+        # Checksum calculation (SHA-256)
+        try:
+            self._checkpoint_checksum = hashlib.sha256(ckpt_path.read_bytes()).hexdigest()
+        except Exception:
+            self._checkpoint_checksum = "unknown"
+
         self._is_loaded = True
 
         logger.info(
-            f"Model successfully loaded! Total Parameters: {self._total_params:,} | Device: {self._device}"
+            f"Model [{self._model_type}] loaded! Params: {self._total_params:,} | SHA256: {self._checkpoint_checksum[:12]}... | Device: {self._device}"
         )
         return True
 
@@ -87,20 +99,39 @@ class ModelService:
         self.ensure_loaded()
         return self._is_loaded
 
+    def get_device(self) -> torch.device:
+        self.ensure_loaded()
+        return self._device
+
     def get_device_name(self) -> str:
         self.ensure_loaded()
         return self._device.type
 
+    def get_model_type(self) -> str:
+        return self._model_type
+
+    def get_checkpoint_checksum(self) -> str:
+        return self._checkpoint_checksum
+
     def get_model_info(self) -> Dict[str, Any]:
         self.ensure_loaded()
+        name_map = {
+            "centralized": "Centralized Multimodal Baseline",
+            "fl_iid": "FedAvg FL-IID (3 Clients Pretrained)",
+            "fl_non_iid": "FedAvg FL-Non-IID Combined Skew",
+        }
         return {
             "model": "FED-MIND Multimodal",
+            "model_type": self._model_type,
+            "model_name": name_map.get(self._model_type, f"FED-MIND ({self._model_type})"),
             "architecture": "Centralized Multimodal Baseline",
             "modalities": ["text", "audio", "visual"],
             "device": self.get_device_name(),
             "status": "ready" if self._is_loaded else "not_loaded",
             "total_parameters": self._total_params,
             "checkpoint_path": self._checkpoint_file,
+            "checkpoint_checksum": self._checkpoint_checksum,
+            "xai_baseline_path": str(settings.resolved_xai_baseline_path.name),
         }
 
 
