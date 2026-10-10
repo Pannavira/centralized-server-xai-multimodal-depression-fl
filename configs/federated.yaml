@@ -1,0 +1,229 @@
+# ==============================================================================
+# federated_training_config_v2.yaml
+# ==============================================================================
+# Konfigurasi Eksperimen Federated Learning VERSI 2 — Centralized Baseline Parity
+# Project: FED-MIND (Explainable Multimodal Depression Detection via Federated Learning)
+# Dataset: E-DAIC (Extended Distress Analysis Interview Corpus) — 275 Subjek Resmi
+# Centralized Baseline: modeling2 (02_Moderate_Regularization_Drop04, best_model.pt)
+# Framework: Flower (flwr) + PyTorch Native Engine
+#
+# TUJUAN:
+#   Mencapai dan melampaui Centralized Gold Standard Baseline (modeling2):
+#   - Centralized Baseline : F1 = 0.7143 | CCC = 0.4342 | MSE = 30.587 | Akurasi = 78.57%
+#   - Target FL            : F1 ≥ 0.65   | CCC ≥ 0.35   | MSE ≤ 40.0   | Akurasi ≥ 75.0%
+#
+# STRATEGI PARITY:
+#   [1] Data Alignment    : Menggunakan fitur modeling2 (modeling/01_Input_From_Partition)
+#   [2] 100% Weight Load  : Arsitektur selaras 100% dengan modeling2 (79/79 parameter cocok)
+#   [3] Stratified IID    : 163 data latih resmi dibagi rata terstratifikasi ke 3 klien
+#   [4] Fine-Tuning LR    : Client LR konservatif (5e-5) menjaga stabilitas representasi emas
+#   [5] Consistent BN     : Agregasi BatchNorm FedAvg untuk menjaga distribusi global yang stabil
+# ==============================================================================
+
+project_name: FED-MIND
+experiment_stage: federated_multimodal_training_v2
+version: "2.0.0"
+description: >
+  Konfigurasi FL v2 selaras 100% dengan Centralized Baseline modeling2.
+  Memuat 79/79 parameter best_model.pt, partisi IID 3-klien terstratifikasi,
+  dan evaluasi test set resmi 56 subjek E-DAIC.
+
+# ------------------------------------------------------------------------------
+# 1. DATA & DATASET CONFIGURATION
+# ------------------------------------------------------------------------------
+data:
+  iid_dataset: "federated_learning_output/IID_3Clients/"
+  noniid_dataset: "federated_learning_output/NonIID_Combined/"
+
+  noniid_scenarios:
+    label_skew: "federated_learning_output/NonIID_LabelSkew/"
+    quantity_skew: "federated_learning_output/NonIID_QuantitySkew/"
+    modality_skew: "federated_learning_output/NonIID_ModalitySkew/"
+    combined: "federated_learning_output/NonIID_Combined/"
+
+  global_train_index: "federated_learning_output/global_train_index.csv"
+  global_val_index: "federated_learning_output/global_validation_index.csv"
+  global_test_index: "federated_learning_output/global_test_index.csv"
+
+  # Path fitur input identik dengan modeling2
+  feature_base_dir: "modeling/01_Input_From_Partition"
+
+  id_column: "participant_id"
+  label_column: "depression_label"
+  binary_threshold: 10.0
+  text_feature_column: "text_feature_path"
+  audio_feature_column: "audio_feature_path"
+  visual_feature_column: "visual_feature_path"
+
+  sequence_length: 512
+  input_shapes:
+    audio: [512, 80]
+    visual: [512, 72, 3]
+    text: [512, 768]
+
+# ------------------------------------------------------------------------------
+# 2. MODEL ARCHITECTURE CONFIGURATION (SELARAS 100% DENGAN MODELING2)
+# ------------------------------------------------------------------------------
+model:
+  base_model: "MultimodalBaselineModel"
+
+  audio_encoder:
+    type: "Conv1d_BiLSTM_Attention"
+    in_channels: 80
+    conv_out_channels: 128
+    lstm_hidden_size: 256
+    lstm_num_layers: 2
+    dropout_conv: 0.4
+    output_dim: 256
+    pooling_type: "mean"                     # modeling2 menggunakan mean pooling
+
+  visual_encoder:
+    type: "Conv2d_BiLSTM_Attention"
+    in_channels: 3
+    kernel_size: [3, 72]
+    conv_out_channels: 64
+    lstm_hidden_size: 256
+    lstm_num_layers: 2
+    dropout_conv: 0.4
+    output_dim: 256
+    pooling_type: "mean"                     # modeling2 menggunakan mean pooling
+
+  text_encoder:
+    type: "Conv1d_BiLSTM_Attention"
+    in_channels: 768
+    conv_out_channels: 128
+    lstm_hidden_size: 256
+    lstm_num_layers: 2
+    dropout_conv: 0.4
+    output_dim: 256
+    pooling_type: "mean"                     # modeling2 menggunakan mean pooling
+
+  # Arsitektur Fusi & Regressor: identik persis dengan modeling2/output/best_model.pt
+  fusion_strategy: "late_fusion"             # Late Fusion Concatenation (768 dimensi)
+  fusion_dim: 768
+  regressor_hidden_dims: [128]               # Linear(768, 128) -> ReLU -> Drop(0.3) -> Linear(128, 1)
+  dropout: 0.3
+  output_dim: 1
+
+# ------------------------------------------------------------------------------
+# 3. FEDERATED LEARNING CONFIGURATION
+# ------------------------------------------------------------------------------
+federated_learning:
+  framework: "flower"
+  algorithm: "FedAvg"
+
+  # Parameter FedProx (nonaktif)
+  fedprox_mu: 0.0
+  fedbn_exclude_layers: ["bn", "batch_norm"]
+
+  # Topologi & Klien
+  number_of_clients: 3
+  client_fraction: 1.0
+  min_fit_clients: 3
+  min_evaluate_clients: 3
+  min_available_clients: 3
+
+  # Siklus Komunikasi
+  communication_rounds: 20
+  local_epochs: 2
+
+  aggregation_weight: "number_of_samples"
+
+  # Warm-start dari Centralized Baseline (modeling2)
+  initialize_from_centralized_baseline: true
+  centralized_baseline_checkpoint: "modeling2/output/best_model.pt"
+
+  # Pure FedAvg terbukti stabil & mempertahankan performa tinggi tanpa gradient drift
+  use_fedopt: false
+  server_lr: 0.01
+  server_beta1: 0.9
+  server_beta2: 0.999
+  server_epsilon: 1.0e-8
+
+  # FedBN dinonaktifkan pada IID agar statistik BN global teragregasi secara konsisten
+  use_fedbn: false
+
+  # LR Warmup
+  warmup_rounds: 1
+
+# ------------------------------------------------------------------------------
+# 4. LOCAL CLIENT TRAINING CONFIGURATION
+# ------------------------------------------------------------------------------
+training:
+  batch_size: 16
+  learning_rate: 0.00005                     # Fine-tuning rate (5e-5) menjaga bobot emas baseline
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  scheduler: "cosine_annealing"
+
+  # Loss Function: Class-Weighted Asymmetric MSE identik dengan modeling2
+  loss_function: "class_weighted_mse"
+  pos_weight_multiplier: 1.5                 # Pengali bobot positif depresi (modeling2 setting)
+  fn_penalty: 1.2                            # Penalti False Negatives (modeling2 setting)
+
+  alpha_mse: 1.0
+  alpha_ccc: 0.2
+  alpha_bce: 0.2
+
+  early_stopping: false
+  patience: 15
+  gradient_clipping: 1.0
+  random_seed: 42
+  device: "cuda"
+
+# ------------------------------------------------------------------------------
+# 5. EVALUATION & VALIDATION CONFIGURATION
+# ------------------------------------------------------------------------------
+evaluation:
+  global_evaluation_each_round: true
+  client_evaluation_each_round: true
+  calibrate_threshold_on_val: true
+  default_binary_threshold: 10.0
+
+  metrics:
+    regression:
+      - "mse"
+      - "rmse"
+      - "mae"
+      - "ccc"
+      - "pearson_r"
+    classification:
+      - "accuracy"
+      - "precision"
+      - "recall"
+      - "f1_score"
+      - "f2_score"
+      - "auc_roc"
+      - "specificity"
+
+# ------------------------------------------------------------------------------
+# 6. EXPLAINABLE AI (XAI) INTEGRATION PREPARATION
+# ------------------------------------------------------------------------------
+xai:
+  enabled: true
+  methods:
+    - "temporal_attention_weights"
+    - "integrated_gradients"
+    - "grad_cam"
+  target_modalities:
+    - "audio"
+    - "visual"
+    - "text"
+  export_visualizations: true
+
+# ------------------------------------------------------------------------------
+# 7. LOGGING, MONITORING & CHECKPOINTS
+# ------------------------------------------------------------------------------
+logging:
+  output_dir: "federated_learning_output/experiments_v2"
+  experiment_name: "fedavg_iid_3clients_pretrained"
+  save_round_metrics: true
+  save_client_metrics: true
+  save_model_checkpoints: true
+  checkpoint_every_round: 5
+  save_best_model: true
+  export_formats:
+    - "json"
+    - "csv"
+    - "xlsx"
+    - "pt"

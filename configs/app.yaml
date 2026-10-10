@@ -1,0 +1,18 @@
+app:
+  name: "FED-MIND Centralized Server"
+  version: "1.0.0"
+  description: "Centralized Application Server for Multimodal Depression Screening & Clinical Explainable AI"
+  host: "127.0.0.1"
+  port: 8000
+  reload: true
+
+model:
+  name: "FED-MIND Multimodal"
+  architecture: "Centralized Multimodal Baseline"
+  checkpoint_path: "storage/models/best_global_model.pt"
+  config_path: "configs/federated.yaml"
+  device: "cuda"
+  modalities:
+    - "text"
+    - "audio"
+    - "visual"

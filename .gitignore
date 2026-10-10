@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+storage/logs/*.log
+storage/xai/*
+!storage/xai/.gitkeep
+.pytest_cache/
+.coverage
+htmlcov/
