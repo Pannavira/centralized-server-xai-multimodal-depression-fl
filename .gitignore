@@ -12,3 +12,6 @@ htmlcov/
 *.db
 *.sqlite
 *.sqlite3
+
+# Federated learning run checkpoint weights
+storage/federated/runs/

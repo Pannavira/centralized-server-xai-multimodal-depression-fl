@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fedmind"
+version = "1.0.0"
+description = "FED-MIND: Centralized Server & Modern Flower FL Infrastructure"
+dependencies = [
+    "torch",
+    "pandas",
+    "scikit-learn",
+    "flwr==1.40.0",
+]
+
+[tool.flwr.app]
+publisher = "fedmind"
+
+[tool.flwr.app.components]
+serverapp = "federated.server_app:app"
+clientapp = "federated.client_app:app"
+
+[tool.flwr.app.config]
+num-server-rounds = 50
+fraction-train = 1.0
+min-train-nodes = 3
+min-available-nodes = 3
+local-epochs = 2
+batch-size = 16
+learning-rate = 0.0001
+seed = 42
+scenario = "non_iid_quantity_skew"
+scientific-status = "controlled_experiment_quantity_skew"
+resume = false
+resume-run-id = ""
+initial-checkpoint = "storage/federated/runs/FL-RUN-20261016-130403-45D587/rounds/round_000/model.pt"
+baseline-control-run = "FL-RUN-20261016-130403-45D587"
+
+
+#######################################################################
+# CONFIGURATION MIGRATION NOTICE:
+#
+# What was previously called "federation config" for SuperLink
+# connections in pyproject.toml has been renamed and moved.
+#
+# These settings are now **SuperLink connection configuration**
+# and are defined in the Flower configuration file.
+#
+# The entries below are commented out intentionally and are kept
+# only as a migration reference.
+#
+# Docs: https://flower.ai/docs/framework/ref-flower-configuration.html
+#######################################################################
+
+# [tool.flwr.federations]
+# default = "local-simulation"
+
+# [tool.flwr.federations.local-simulation]
+# options.num-supernodes = 3
