@@ -1,0 +1,26 @@
+{
+  "milestone": "5.6",
+  "title": "FED-MIND Cross-Scenario Multi-Seed Validation",
+  "total_target_matrix": 25,
+  "target_seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "target_scenarios": [
+    "IID_3Clients",
+    "label_skew",
+    "quantity_skew",
+    "modality_skew",
+    "combined_skew"
+  ],
+  "total_registered_runs": 25,
+  "reused_verified_runs": 5,
+  "new_completed_runs": 20,
+  "failed_runs": 0,
+  "incomplete_runs": 0,
+  "matrix_completion_rate": "100.0%",
+  "updated_at_utc": "2026-10-20T16:15:05.819706+00:00"
+}

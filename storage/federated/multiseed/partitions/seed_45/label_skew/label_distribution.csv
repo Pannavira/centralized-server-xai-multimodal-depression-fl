@@ -1,0 +1,7 @@
+client,scenario,total_samples,positive_samples,negative_samples,positive_proportion,negative_proportion,positive_pct,negative_pct,phq8_mean,phq8_median,phq8_std,binary_label_entropy
+Client 1,IID Control (M5.1),54,16,38,0.2963,0.7037,29.63,70.37,7.0556,6.0,6.537,0.8767
+Client 2,IID Control (M5.1),55,17,38,0.3091,0.6909,30.91,69.09,6.3818,5.0,5.3107,0.8921
+Client 3,IID Control (M5.1),54,17,37,0.3148,0.6852,31.48,68.52,6.537,3.5,6.5176,0.8987
+Client 1,Label Skew (M5.2),54,43,11,0.7963,0.2037,79.63,20.37,12.4074,12.0,5.7872,0.7293
+Client 2,Label Skew (M5.2),55,2,53,0.0364,0.9636,3.64,96.36,3.7091,3.0,3.66,0.2254
+Client 3,Label Skew (M5.2),54,5,49,0.0926,0.9074,9.26,90.74,3.9074,3.0,4.0806,0.4451

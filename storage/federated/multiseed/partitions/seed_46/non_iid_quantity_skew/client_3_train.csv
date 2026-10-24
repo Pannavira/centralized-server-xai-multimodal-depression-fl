@@ -1,0 +1,17 @@
+participant_id,split,depression_label,text_feature_path,audio_feature_path,visual_feature_path,phq8_score
+305,train,0,final_text_features\305.npy,final_audio_features\305.npy,final_visual_features\305.npy,7.0
+310,train,0,final_text_features\310.npy,final_audio_features\310.npy,final_visual_features\310.npy,4.0
+330,train,1,final_text_features\330.npy,final_audio_features\330.npy,final_visual_features\330.npy,12.0
+345,train,1,final_text_features\345.npy,final_audio_features\345.npy,final_visual_features\345.npy,15.0
+355,train,1,final_text_features\355.npy,final_audio_features\355.npy,final_visual_features\355.npy,10.0
+356,train,1,final_text_features\356.npy,final_audio_features\356.npy,final_visual_features\356.npy,10.0
+368,train,0,final_text_features\368.npy,final_audio_features\368.npy,final_visual_features\368.npy,7.0
+383,train,0,final_text_features\383.npy,final_audio_features\383.npy,final_visual_features\383.npy,7.0
+400,train,0,final_text_features\400.npy,final_audio_features\400.npy,final_visual_features\400.npy,7.0
+407,train,0,final_text_features\407.npy,final_audio_features\407.npy,final_visual_features\407.npy,3.0
+417,train,0,final_text_features\417.npy,final_audio_features\417.npy,final_visual_features\417.npy,7.0
+452,train,0,final_text_features\452.npy,final_audio_features\452.npy,final_visual_features\452.npy,1.0
+453,train,1,final_text_features\453.npy,final_audio_features\453.npy,final_visual_features\453.npy,17.0
+489,train,0,final_text_features\489.npy,final_audio_features\489.npy,final_visual_features\489.npy,3.0
+702,train,0,final_text_features\702.npy,final_audio_features\702.npy,final_visual_features\702.npy,0.0
+703,train,0,final_text_features\703.npy,final_audio_features\703.npy,final_visual_features\703.npy,8.0

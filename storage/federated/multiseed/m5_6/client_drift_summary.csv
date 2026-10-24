@@ -1,0 +1,6 @@
+scenario,display_name,n_runs,avg_raw_l2_norm,std_raw_l2_norm,avg_weighted_l2_norm
+IID_3Clients,FL-IID,4,15.28675,0.14598960008621653,5.09545
+combined_skew,Non-IID Combined Skew,5,15.206620000000001,0.1871978819324617,6.87654
+label_skew,Non-IID Label Skew,5,15.40476,0.17385635737585178,7.19008
+modality_skew,Non-IID Modality Skew,5,15.343619999999998,0.14469357967788382,5.11454
+quantity_skew,Non-IID Quantity Skew,5,15.35248,0.32582656736368204,6.8918800000000005

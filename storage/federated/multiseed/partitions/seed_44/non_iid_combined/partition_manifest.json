@@ -1,0 +1,70 @@
+{
+  "protocol": "controlled_combined_skew_v1",
+  "generation_timestamp": "2026-10-20T02:45:13.841285+00:00",
+  "random_seed": 44,
+  "target_quantities": [
+    98,
+    49,
+    16
+  ],
+  "target_positives": [
+    18,
+    19,
+    13
+  ],
+  "source_iid_files": {
+    "client_1_train": {
+      "samples": 54,
+      "sha256": "e0b4d1282936b5a252a9a2c1ccecf2285a97ca00506e7e8cf2089b3d4f286524"
+    },
+    "client_2_train": {
+      "samples": 55,
+      "sha256": "76d72f0480d90163ec540882b8971ffd26d0c1182b76b3a2170ecd537c101f09"
+    },
+    "client_3_train": {
+      "samples": 54,
+      "sha256": "ff5cb8e3501113609b15b484719215deebe970d0337ca4bd2d4bf0b4da396355"
+    }
+  },
+  "generated_files": {
+    "client_1_train.csv": {
+      "samples": 98,
+      "positives": 18,
+      "negatives": 80,
+      "sha256": "d7611c838b0f4feec1d0cd4b2575872cfe5b8a6d06c363b1ff3b24d307122537"
+    },
+    "client_2_train.csv": {
+      "samples": 49,
+      "positives": 19,
+      "negatives": 30,
+      "sha256": "28cc054fdce15a657ae8b61f56fc383f63d1b4b5670b377d00a0faa68f02c265"
+    },
+    "client_3_train.csv": {
+      "samples": 16,
+      "positives": 13,
+      "negatives": 3,
+      "sha256": "ae1844d03d2e54b58787b3a6e81684823d6bf0584d0df6fccb4f6ce012b26de1"
+    },
+    "client_1_val.csv": {
+      "samples": 56,
+      "sha256": "54a1dd5c7ea1a5449df2f4e63a623858765662e5d588699b9f4efa3a6a6728ad",
+      "note": "Identical shared validation cohort (zero leakage)"
+    },
+    "client_2_val.csv": {
+      "samples": 56,
+      "sha256": "54a1dd5c7ea1a5449df2f4e63a623858765662e5d588699b9f4efa3a6a6728ad",
+      "note": "Identical shared validation cohort (zero leakage)"
+    },
+    "client_3_val.csv": {
+      "samples": 56,
+      "sha256": "54a1dd5c7ea1a5449df2f4e63a623858765662e5d588699b9f4efa3a6a6728ad",
+      "note": "Identical shared validation cohort (zero leakage)"
+    }
+  },
+  "zero_leakage_assertion": {
+    "test_leakage_count": 0,
+    "validation_leakage_count": 0,
+    "all_training_pool_preserved": true,
+    "pool_cardinality": 163
+  }
+}

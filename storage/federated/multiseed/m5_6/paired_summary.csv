@@ -1,0 +1,41 @@
+scenario,display_name,metric,metric_label,lower_is_better,n_paired_runs,mean_paired_delta,sample_std_paired_delta,median_paired_delta,ci_95_lower,ci_95_upper,n_positive_deltas,n_negative_deltas,n_zero_deltas
+label_skew,Non-IID Label Skew,mae,PHQ-8 MAE,True,5,-0.2774,0.6565,-0.3033,-1.0925,0.5377,2,3,0
+label_skew,Non-IID Label Skew,rmse,PHQ-8 RMSE,True,5,-0.2198,0.7423,-0.1949,-1.1415,0.7019,2,3,0
+label_skew,Non-IID Label Skew,mse,PHQ-8 MSE,True,5,-2.7444,9.4128,-2.3861,-14.432,8.9431,2,3,0
+label_skew,Non-IID Label Skew,macro_f1,Macro F1,False,5,-0.0037,0.0656,-0.0237,-0.0851,0.0777,2,3,0
+label_skew,Non-IID Label Skew,binary_f1,Binary F1,False,5,-0.1189,0.0674,-0.1122,-0.2026,-0.0352,0,5,0
+label_skew,Non-IID Label Skew,recall,Sensitivity / Recall,False,5,-0.3048,0.1372,-0.2857,-0.4751,-0.1344,0,5,0
+label_skew,Non-IID Label Skew,specificity,Specificity,False,5,0.2514,0.1845,0.2,0.0223,0.4805,5,0,0
+label_skew,Non-IID Label Skew,auc_roc,ROC-AUC,False,5,-0.0541,0.0747,-0.0421,-0.1469,0.0387,1,4,0
+label_skew,Non-IID Label Skew,ccc,Lin's CCC,False,5,-0.0781,0.1211,-0.0451,-0.2285,0.0723,1,4,0
+label_skew,Non-IID Label Skew,pearson_r,Pearson r,False,5,-0.0718,0.1217,-0.0238,-0.2229,0.0793,1,4,0
+quantity_skew,Non-IID Quantity Skew,mae,PHQ-8 MAE,True,5,0.128,0.2968,0.094,-0.2405,0.4965,3,2,0
+quantity_skew,Non-IID Quantity Skew,rmse,PHQ-8 RMSE,True,5,0.1435,0.297,0.0586,-0.2253,0.5123,3,2,0
+quantity_skew,Non-IID Quantity Skew,mse,PHQ-8 MSE,True,5,1.8944,3.8272,0.7749,-2.8578,6.6465,3,2,0
+quantity_skew,Non-IID Quantity Skew,macro_f1,Macro F1,False,5,-0.0139,0.0582,0.0,-0.0862,0.0583,2,2,1
+quantity_skew,Non-IID Quantity Skew,binary_f1,Binary F1,False,5,-0.0109,0.0188,-0.0084,-0.0342,0.0125,1,3,1
+quantity_skew,Non-IID Quantity Skew,recall,Sensitivity / Recall,False,5,0.0095,0.0851,0.0,-0.0962,0.1152,1,1,3
+quantity_skew,Non-IID Quantity Skew,specificity,Specificity,False,5,-0.0343,0.1504,0.0,-0.221,0.1525,2,2,1
+quantity_skew,Non-IID Quantity Skew,auc_roc,ROC-AUC,False,5,-0.0229,0.0214,-0.0286,-0.0494,0.0037,1,4,0
+quantity_skew,Non-IID Quantity Skew,ccc,Lin's CCC,False,5,-0.0221,0.0513,-0.0073,-0.0858,0.0415,2,3,0
+quantity_skew,Non-IID Quantity Skew,pearson_r,Pearson r,False,5,-0.0191,0.0367,-0.0158,-0.0647,0.0265,1,4,0
+modality_skew,Non-IID Modality Skew,mae,PHQ-8 MAE,True,5,-0.0424,0.3139,-0.0258,-0.4321,0.3473,2,3,0
+modality_skew,Non-IID Modality Skew,rmse,PHQ-8 RMSE,True,5,0.0135,0.3156,-0.1188,-0.3783,0.4054,2,3,0
+modality_skew,Non-IID Modality Skew,mse,PHQ-8 MSE,True,5,0.1765,4.2273,-1.4445,-5.0724,5.4254,2,3,0
+modality_skew,Non-IID Modality Skew,macro_f1,Macro F1,False,5,0.0095,0.0509,0.0078,-0.0537,0.0727,3,2,0
+modality_skew,Non-IID Modality Skew,binary_f1,Binary F1,False,5,-0.0039,0.0255,-0.0037,-0.0355,0.0278,2,3,0
+modality_skew,Non-IID Modality Skew,recall,Sensitivity / Recall,False,5,-0.0286,0.0987,-0.0476,-0.1512,0.094,2,3,0
+modality_skew,Non-IID Modality Skew,specificity,Specificity,False,5,0.0286,0.1385,0.0,-0.1434,0.2005,2,2,1
+modality_skew,Non-IID Modality Skew,auc_roc,ROC-AUC,False,5,-0.012,0.0268,-0.0245,-0.0452,0.0212,2,3,0
+modality_skew,Non-IID Modality Skew,ccc,Lin's CCC,False,5,0.0005,0.0403,-0.0083,-0.0495,0.0505,2,3,0
+modality_skew,Non-IID Modality Skew,pearson_r,Pearson r,False,5,-0.0088,0.0301,-0.0198,-0.0462,0.0286,2,3,0
+combined_skew,Non-IID Combined Skew,mae,PHQ-8 MAE,True,5,0.2876,0.7138,0.3988,-0.5987,1.1739,4,1,0
+combined_skew,Non-IID Combined Skew,rmse,PHQ-8 RMSE,True,5,0.308,0.7411,0.2629,-0.6122,1.2282,4,1,0
+combined_skew,Non-IID Combined Skew,mse,PHQ-8 MSE,True,5,4.2171,10.0995,3.2983,-8.3231,16.7572,4,1,0
+combined_skew,Non-IID Combined Skew,macro_f1,Macro F1,False,5,-0.0229,0.0858,-0.042,-0.1295,0.0836,1,4,0
+combined_skew,Non-IID Combined Skew,binary_f1,Binary F1,False,5,-0.0155,0.0256,-0.012,-0.0473,0.0162,1,4,0
+combined_skew,Non-IID Combined Skew,recall,Sensitivity / Recall,False,5,0.0,0.175,0.0476,-0.2172,0.2172,3,1,1
+combined_skew,Non-IID Combined Skew,specificity,Specificity,False,5,-0.04,0.2552,-0.1143,-0.3569,0.2769,1,4,0
+combined_skew,Non-IID Combined Skew,auc_roc,ROC-AUC,False,5,-0.0259,0.0258,-0.0327,-0.0579,0.0061,1,4,0
+combined_skew,Non-IID Combined Skew,ccc,Lin's CCC,False,5,-0.0634,0.0581,-0.0654,-0.1356,0.0087,1,4,0
+combined_skew,Non-IID Combined Skew,pearson_r,Pearson r,False,5,-0.0612,0.0389,-0.0552,-0.1095,-0.0129,0,5,0

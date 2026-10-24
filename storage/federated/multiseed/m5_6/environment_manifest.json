@@ -1,0 +1,11 @@
+{
+  "python_version": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "pytorch_version": "2.11.0+cu128",
+  "cuda_version": "12.8",
+  "cudnn_version": "91900",
+  "flower_version": "1.40.0",
+  "gpu_model": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "git_commit": "828c079d5c4ecffb935d77d93e9d48a9f683d612",
+  "timestamp_utc": "2026-10-20T16:15:05.820328+00:00"
+}

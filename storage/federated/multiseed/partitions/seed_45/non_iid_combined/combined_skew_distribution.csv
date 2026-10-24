@@ -1,0 +1,4 @@
+client,samples,proportion,fedavg_weight,positives,negatives,positive_prevalence,phq8_mean,phq8_median,phq8_std,binary_entropy,audio_treatment,visual_treatment,text_treatment
+Client 1,98,60.12%,98/163,18,80,18.37%,5.42,4.0,5.10,0.6880,clean,clean,clean
+Client 2,49,30.06%,49/163,19,30,38.78%,7.86,5.0,7.26,0.9633,gaussian_noise_sigma_0.25,clean,clean
+Client 3,16,9.82%,16/163,13,3,81.25%,10.56,11.0,5.96,0.6962,clean,temporal_frame_dropout_0.20_neutral_mean_imputation,clean

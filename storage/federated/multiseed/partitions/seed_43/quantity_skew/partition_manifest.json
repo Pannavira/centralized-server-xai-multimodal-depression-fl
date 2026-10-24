@@ -1,0 +1,157 @@
+{
+  "manifest_version": "1.0",
+  "created_at": "2026-10-20T02:45:08.736662+00:00",
+  "scenario": "non_iid_quantity_skew",
+  "scientific_status": "controlled_experiment_quantity_skew",
+  "generator": "federated.partitions.quantity_skew",
+  "seed": 43,
+  "source_iid_control_run": "FL-RUN-20261016-130403-45D587",
+  "source_iid_manifest": {
+    "client_1": {
+      "path": "C:\\Wira\\Kuliah\\Penelitian\\clinical-xai-multimodal-depression-fl\\federated_learning_output\\IID_3Clients\\client_1_train.csv",
+      "sha256": "e0b4d1282936b5a252a9a2c1ccecf2285a97ca00506e7e8cf2089b3d4f286524",
+      "samples": 54,
+      "positives": 16,
+      "negatives": 38
+    },
+    "client_2": {
+      "path": "C:\\Wira\\Kuliah\\Penelitian\\clinical-xai-multimodal-depression-fl\\federated_learning_output\\IID_3Clients\\client_2_train.csv",
+      "sha256": "76d72f0480d90163ec540882b8971ffd26d0c1182b76b3a2170ecd537c101f09",
+      "samples": 55,
+      "positives": 17,
+      "negatives": 38
+    },
+    "client_3": {
+      "path": "C:\\Wira\\Kuliah\\Penelitian\\clinical-xai-multimodal-depression-fl\\federated_learning_output\\IID_3Clients\\client_3_train.csv",
+      "sha256": "ff5cb8e3501113609b15b484719215deebe970d0337ca4bd2d4bf0b4da396355",
+      "samples": 54,
+      "positives": 17,
+      "negatives": 37
+    }
+  },
+  "invariants": {
+    "S_IID_equals_S_QUANTITY": true,
+    "total_participants": 163,
+    "client_quantities": [
+      98,
+      49,
+      16
+    ],
+    "client_proportions": [
+      0.6012269938650306,
+      0.3006134969325153,
+      0.09815950920245399
+    ],
+    "fedavg_weights": [
+      "98/163",
+      "49/163",
+      "16/163"
+    ],
+    "disjoint_clients": true,
+    "zero_leakage_global_test": true,
+    "zero_leakage_shared_validation": true,
+    "global_positive_count": 50,
+    "global_negative_count": 113
+  },
+  "global_test": {
+    "file": "global_test_index.csv",
+    "sha256": "27ea4f24fb8aa32fcbc79d06ef7d833c74de1abfc5a7fbd1f76a3d7b07884984",
+    "samples": 56
+  },
+  "shared_validation": {
+    "file": "client_1_val.csv",
+    "sha256": "54a1dd5c7ea1a5449df2f4e63a623858765662e5d588699b9f4efa3a6a6728ad",
+    "samples": 56
+  },
+  "client_partitions": {
+    "client_1": {
+      "file": "client_1_train.csv",
+      "full_path": "C:\\Wira\\Kuliah\\Penelitian\\PROTOTYPE APLIKASI FL\\centralized-server-xai-multimodal-depression-fl\\storage\\federated\\multiseed\\partitions\\seed_43\\non_iid_quantity_skew\\client_1_train.csv",
+      "sha256": "ec603467d69da61cf32723e808ba1dc131ea7b269b745c48e2ff5513ccba9c6f",
+      "samples": 98,
+      "proportion_of_total": 0.6012269938650306,
+      "fedavg_weight": 0.6012269938650306,
+      "fedavg_weight_fraction": "98/163",
+      "positives": 30,
+      "negatives": 68,
+      "positive_prevalence": 0.30612244897959184,
+      "prevalence_deviation_from_global": 0.0006260172780768736,
+      "binary_entropy": 0.8886466698980793,
+      "phq8_mean": 6.571428571428571,
+      "phq8_std": 5.627619664901272,
+      "phq8_median": 5.5,
+      "phq8_min": 0.0,
+      "phq8_max": 23.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.4387755102040816,
+        "mild_5_9": 0.25510204081632654,
+        "moderate_10_14": 0.20408163265306123,
+        "moderately_severe_15_19": 0.08163265306122448,
+        "severe_20_24": 0.02040816326530612
+      },
+      "target_allocation": "30 pos, 68 neg"
+    },
+    "client_2": {
+      "file": "client_2_train.csv",
+      "full_path": "C:\\Wira\\Kuliah\\Penelitian\\PROTOTYPE APLIKASI FL\\centralized-server-xai-multimodal-depression-fl\\storage\\federated\\multiseed\\partitions\\seed_43\\non_iid_quantity_skew\\client_2_train.csv",
+      "sha256": "76f44cf98902b6f6f7af92086226459b2eb8e9bf4887c5842c1d9968609f0400",
+      "samples": 49,
+      "proportion_of_total": 0.3006134969325153,
+      "fedavg_weight": 0.3006134969325153,
+      "fedavg_weight_fraction": "49/163",
+      "positives": 15,
+      "negatives": 34,
+      "positive_prevalence": 0.30612244897959184,
+      "prevalence_deviation_from_global": 0.0006260172780768736,
+      "binary_entropy": 0.8886466698980793,
+      "phq8_mean": 6.6938775510204085,
+      "phq8_std": 6.73054010225236,
+      "phq8_median": 4.0,
+      "phq8_min": 0.0,
+      "phq8_max": 22.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.5306122448979592,
+        "mild_5_9": 0.16326530612244897,
+        "moderate_10_14": 0.08163265306122448,
+        "moderately_severe_15_19": 0.16326530612244897,
+        "severe_20_24": 0.061224489795918366
+      },
+      "target_allocation": "15 pos, 34 neg"
+    },
+    "client_3": {
+      "file": "client_3_train.csv",
+      "full_path": "C:\\Wira\\Kuliah\\Penelitian\\PROTOTYPE APLIKASI FL\\centralized-server-xai-multimodal-depression-fl\\storage\\federated\\multiseed\\partitions\\seed_43\\non_iid_quantity_skew\\client_3_train.csv",
+      "sha256": "a0b5d8ece18aa63e0548562e595388f44add3899ed375c082df7ec7f52182667",
+      "samples": 16,
+      "proportion_of_total": 0.09815950920245399,
+      "fedavg_weight": 0.09815950920245399,
+      "fedavg_weight_fraction": "16/163",
+      "positives": 5,
+      "negatives": 11,
+      "positive_prevalence": 0.3125,
+      "prevalence_deviation_from_global": 0.005751533742331283,
+      "binary_entropy": 0.8960382325345574,
+      "phq8_mean": 7.0625,
+      "phq8_std": 7.316362939785496,
+      "phq8_median": 5.0,
+      "phq8_min": 0.0,
+      "phq8_max": 22.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.5,
+        "mild_5_9": 0.1875,
+        "moderate_10_14": 0.125,
+        "moderately_severe_15_19": 0.0625,
+        "severe_20_24": 0.125
+      },
+      "target_allocation": "5 pos, 11 neg"
+    }
+  },
+  "divergence_metrics": {
+    "mean_pairwise_js_divergence": 0.003906328972479154,
+    "max_prevalence_deviation": 0.005751533742331283
+  },
+  "plots": {
+    "quantity_distribution_iid_vs_skew": "storage\\federated\\multiseed\\partitions\\seed_43\\non_iid_quantity_skew\\plots\\quantity_distribution_iid_vs_skew.png",
+    "label_balance_quantity_skew": "storage\\federated\\multiseed\\partitions\\seed_43\\non_iid_quantity_skew\\plots\\label_balance_quantity_skew.png"
+  }
+}

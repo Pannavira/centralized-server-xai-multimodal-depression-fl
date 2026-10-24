@@ -1,0 +1,9 @@
+num-server-rounds = 50
+seed = 46
+scenario = "label_skew"
+partition-dir = "storage/federated/multiseed/partitions/seed_46/label_skew"
+initial-checkpoint = "storage/federated/multiseed/initializations/seed_46/round_000/model.pt"
+initial-checkpoint-sha = "717b3e55c41e4ec260a8e0524cad6e86c91286afb02c4c5b708a9dd7c089f288"
+scientific-status = "multiseed_m5_6_label_skew_seed46"
+audio-noise-sigma = 0.25
+visual-frame-dropout-rate = 0.2

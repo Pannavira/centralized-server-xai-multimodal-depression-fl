@@ -1,0 +1,6 @@
+scenario,display_name,valid_completed_runs,model_parameters,fp32_model_bytes,fp32_model_mib,per_round_bidirectional_bytes,per_round_bidirectional_mib,total_50_rounds_bytes_per_run,total_50_rounds_gib_per_run,total_scenario_bytes,total_scenario_gib
+IID_3Clients,FL-IID,5,7832001,31328004,29.8767,187968024,179.2603,9398401200,8.7529,46992006000,43.7647
+label_skew,Non-IID Label Skew,5,7832001,31328004,29.8767,187968024,179.2603,9398401200,8.7529,46992006000,43.7647
+quantity_skew,Non-IID Quantity Skew,5,7832001,31328004,29.8767,187968024,179.2603,9398401200,8.7529,46992006000,43.7647
+modality_skew,Non-IID Modality Skew,5,7832001,31328004,29.8767,187968024,179.2603,9398401200,8.7529,46992006000,43.7647
+combined_skew,Non-IID Combined Skew,5,7832001,31328004,29.8767,187968024,179.2603,9398401200,8.7529,46992006000,43.7647

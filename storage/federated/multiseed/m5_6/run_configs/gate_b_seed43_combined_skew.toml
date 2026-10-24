@@ -1,0 +1,7 @@
+num-server-rounds = 2
+seed = 43
+scenario = "combined_skew"
+partition-dir = "storage/federated/multiseed/partitions/seed_43/combined_skew"
+initial-checkpoint = "storage/federated/multiseed/initializations/seed_43/round_000/model.pt"
+initial-checkpoint-sha = "89bbd6c5109422a7393b9b70ed75ed5a0370340fe56cd92cdb4de98313254b26"
+scientific-status = "gate_b_validation_seed43"

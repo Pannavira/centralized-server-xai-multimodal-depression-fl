@@ -1,0 +1,26 @@
+{
+  "scenario": "IID_3Clients",
+  "seed": 45,
+  "protocol": "controlled_iid_multiseed",
+  "created_at_utc": "2026-10-20T02:45:14.807394+00:00",
+  "client_train": {
+    "client_1": {
+      "file": "client_1_train.csv",
+      "sha256": "f9c7229c123f0869eb6fe702aef50575916d8c21d216792e5be7beaab3036d37",
+      "samples": 54,
+      "positives": 16
+    },
+    "client_2": {
+      "file": "client_2_train.csv",
+      "sha256": "aa65064d1cc0ef6fee28ce776743cf9cee66990246fab135ce04f1eb9ec53a55",
+      "samples": 55,
+      "positives": 17
+    },
+    "client_3": {
+      "file": "client_3_train.csv",
+      "sha256": "a6989afd4603110209e59e27f83f97da568a70c6a029be32d709737263b62f6f",
+      "samples": 54,
+      "positives": 17
+    }
+  }
+}

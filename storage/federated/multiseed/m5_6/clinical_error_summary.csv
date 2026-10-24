@@ -1,0 +1,6 @@
+scenario,display_name,n_runs,mean_fn,std_fn,min_fn,max_fn,mean_fp,std_fp,min_fp,max_fp,mean_recall,mean_specificity,mean_fnr,mean_fpr
+IID_3Clients,FL-IID,5,6.2,2.59,3,10,14.0,7.42,5,22,0.7048,0.6,0.2952,0.4
+label_skew,Non-IID Label Skew,5,12.6,2.41,10,16,5.2,1.92,3,8,0.4,0.8514,0.6,0.1486
+quantity_skew,Non-IID Quantity Skew,5,6.0,2.35,4,10,15.2,5.81,6,20,0.7143,0.5657,0.2857,0.4343
+modality_skew,Non-IID Modality Skew,5,6.8,1.1,6,8,13.0,5.39,9,22,0.6762,0.6286,0.3238,0.3714
+combined_skew,Non-IID Combined Skew,5,6.2,1.92,4,9,15.4,6.95,8,25,0.7048,0.56,0.2952,0.44

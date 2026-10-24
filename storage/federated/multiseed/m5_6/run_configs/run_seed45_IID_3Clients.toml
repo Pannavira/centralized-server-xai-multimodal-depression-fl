@@ -1,0 +1,9 @@
+num-server-rounds = 50
+seed = 45
+scenario = "IID_3Clients"
+partition-dir = "storage/federated/multiseed/partitions/seed_45/IID_3Clients"
+initial-checkpoint = "storage/federated/multiseed/initializations/seed_45/round_000/model.pt"
+initial-checkpoint-sha = "3dc785b5c8b959f86534ec25a324727f0037545b8bea07281ebeaa7084d62a88"
+scientific-status = "multiseed_m5_6_IID_3Clients_seed45"
+audio-noise-sigma = 0.25
+visual-frame-dropout-rate = 0.2

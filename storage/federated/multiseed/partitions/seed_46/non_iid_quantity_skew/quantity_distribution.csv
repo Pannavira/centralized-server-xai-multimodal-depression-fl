@@ -1,0 +1,4 @@
+client_id,total_samples,proportion_pct,fedavg_weight,positives,negatives,positive_prevalence_pct,prevalence_deviation_pct,phq8_mean,phq8_std,phq8_median,sha256
+client_1,98,60.12,98/163,30,68,30.61,0.0626,6.5,6.33,4.0,f18b52fbec551eff2c8ff573e72645222eb1e8cd5901623400892d97f370a094
+client_2,49,30.06,49/163,15,34,30.61,0.0626,6.73,6.16,5.0,576513e084c8aa59640ad1c5bb691490659853e5ff5d80e53c5b74dfbfdd6404
+client_3,16,9.82,16/163,5,11,31.25,0.5752,7.38,4.7,7.0,3d37a688767f50a7d2484fda51d983799f388fc1682c7e286f87b7177c749004

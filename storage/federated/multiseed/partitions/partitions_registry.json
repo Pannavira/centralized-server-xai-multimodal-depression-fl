@@ -1,0 +1,252 @@
+{
+  "seed_42_IID_3Clients": {
+    "seed": 42,
+    "scenario": "IID_3Clients",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_42/IID_3Clients",
+    "manifest_sha256": "7f5dd148c909fff41ab6e5d20fc6c0f0c4568a950dd6721bb8b16e7bdf4fd7ff",
+    "client_1_sha256": "e0b4d1282936b5a252a9a2c1ccecf2285a97ca00506e7e8cf2089b3d4f286524",
+    "client_2_sha256": "76d72f0480d90163ec540882b8971ffd26d0c1182b76b3a2170ecd537c101f09",
+    "client_3_sha256": "ff5cb8e3501113609b15b484719215deebe970d0337ca4bd2d4bf0b4da396355",
+    "zero_leakage_verified": true
+  },
+  "seed_42_non_iid_label_skew": {
+    "seed": 42,
+    "scenario": "non_iid_label_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_42/non_iid_label_skew",
+    "manifest_sha256": "474e162c18cca28e9f2d2361e6a044af4e95b6745ae27bdbda8f3979d6e41437",
+    "client_1_sha256": "afd27388353fae11ef9e87302b95d19176483236b7780bd25b61ec05adf27e37",
+    "client_2_sha256": "a0a016957e4ab0b953f4e5d63b86644b06506c8cc32b65420246392334f5c6c8",
+    "client_3_sha256": "ee17c49cdd9acdbc2a2b9f144bae7da950348e54327f8725bbd75dbd4794cdf2",
+    "zero_leakage_verified": true
+  },
+  "seed_42_non_iid_quantity_skew": {
+    "seed": 42,
+    "scenario": "non_iid_quantity_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_42/non_iid_quantity_skew",
+    "manifest_sha256": "00099a21421512e354a9d4815ced4241df7eff188b036b9cb4f76131c8c15339",
+    "client_1_sha256": "e36681470b1225e1a23e793e27243e6b67abb60f698f4c1a5869adca6addb321",
+    "client_2_sha256": "030caf42c6425b681bc69b09ea2b2e2eb71a6931484b4239aff90ffc40acf954",
+    "client_3_sha256": "090886b53c7f035e75a34ecb18782ad1fb817e173719aec9aadf5115c6e1bcbc",
+    "zero_leakage_verified": true
+  },
+  "seed_42_non_iid_modality_skew": {
+    "seed": 42,
+    "scenario": "non_iid_modality_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_42/non_iid_modality_skew",
+    "manifest_sha256": "7f5dd148c909fff41ab6e5d20fc6c0f0c4568a950dd6721bb8b16e7bdf4fd7ff",
+    "client_1_sha256": "e0b4d1282936b5a252a9a2c1ccecf2285a97ca00506e7e8cf2089b3d4f286524",
+    "client_2_sha256": "76d72f0480d90163ec540882b8971ffd26d0c1182b76b3a2170ecd537c101f09",
+    "client_3_sha256": "ff5cb8e3501113609b15b484719215deebe970d0337ca4bd2d4bf0b4da396355",
+    "zero_leakage_verified": true
+  },
+  "seed_42_non_iid_combined": {
+    "seed": 42,
+    "scenario": "non_iid_combined",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_42/non_iid_combined",
+    "manifest_sha256": "524acdce2230780b1a77a30c70694985736e9306013417b6fe6a0635de20cb9e",
+    "client_1_sha256": "15e47f68b0056be2f9245f90a86ca8998e5b6bfccd9e742fe62812dc1529adc3",
+    "client_2_sha256": "95dafd4b892ca2c241bdc877f677ac236d08b5ce85280ce21897b79ec5c1b1c6",
+    "client_3_sha256": "897ddb058080bb8c46b32f2e64d768e267e23b1c55ddde408e4ca561f8e21a53",
+    "zero_leakage_verified": true
+  },
+  "seed_43_IID_3Clients": {
+    "seed": 43,
+    "scenario": "IID_3Clients",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_43/IID_3Clients",
+    "manifest_sha256": "09e74f22a2b3318c5c426fae1d4f07c0125b792075580d001ce024cb045e41ef",
+    "client_1_sha256": "e6e7d3e8cbe0cc4241f86d8610c25fc5df96c8a8d461ffa5b78232c9e432a59a",
+    "client_2_sha256": "b57a406f28c37f6e0ab52fa0292983855693784f92662005154ba85e19e927b5",
+    "client_3_sha256": "4ccb255b522c164d424e3ff535c8fe63bdf0501d417aeac53dcfe59a0d6f704f",
+    "zero_leakage_verified": true
+  },
+  "seed_43_non_iid_label_skew": {
+    "seed": 43,
+    "scenario": "non_iid_label_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_43/non_iid_label_skew",
+    "manifest_sha256": "dde4f17b19b92cd483bc7f5522f8ca88be4fc9603d1736c13d5117fdd32239d0",
+    "client_1_sha256": "34691e2a516ec742c17382309e7c78138df76096c3ad2b00c5c9c9ef0ffc3b6e",
+    "client_2_sha256": "09320e98463f8e453b20a90217ef2913a63cb71910ac8fa330aa671e0fcbb2cf",
+    "client_3_sha256": "d411a28400479fa12dff09c355ccaed66fd59c22d8b8d5b302b86a79de676607",
+    "zero_leakage_verified": true
+  },
+  "seed_43_non_iid_quantity_skew": {
+    "seed": 43,
+    "scenario": "non_iid_quantity_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_43/non_iid_quantity_skew",
+    "manifest_sha256": "b172c6b8a3bd33ef7cc80a75573ef27ace8449015d81acbfe75f5491b504f80e",
+    "client_1_sha256": "ec603467d69da61cf32723e808ba1dc131ea7b269b745c48e2ff5513ccba9c6f",
+    "client_2_sha256": "76f44cf98902b6f6f7af92086226459b2eb8e9bf4887c5842c1d9968609f0400",
+    "client_3_sha256": "a0b5d8ece18aa63e0548562e595388f44add3899ed375c082df7ec7f52182667",
+    "zero_leakage_verified": true
+  },
+  "seed_43_non_iid_modality_skew": {
+    "seed": 43,
+    "scenario": "non_iid_modality_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_43/non_iid_modality_skew",
+    "manifest_sha256": "09e74f22a2b3318c5c426fae1d4f07c0125b792075580d001ce024cb045e41ef",
+    "client_1_sha256": "e6e7d3e8cbe0cc4241f86d8610c25fc5df96c8a8d461ffa5b78232c9e432a59a",
+    "client_2_sha256": "b57a406f28c37f6e0ab52fa0292983855693784f92662005154ba85e19e927b5",
+    "client_3_sha256": "4ccb255b522c164d424e3ff535c8fe63bdf0501d417aeac53dcfe59a0d6f704f",
+    "zero_leakage_verified": true
+  },
+  "seed_43_non_iid_combined": {
+    "seed": 43,
+    "scenario": "non_iid_combined",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_43/non_iid_combined",
+    "manifest_sha256": "8b5a34b0d80b09c023adab3a415008338f155cfadebc4dece0a47a4e9b2486d5",
+    "client_1_sha256": "8a7087b8f2ead0b0eb9a27adb7c3889492d75246e605027ac13a5a962d9e4854",
+    "client_2_sha256": "99f7300079dcdf3e1d8441274ef94233a5253a3340a5e9143cbc51db45a27d23",
+    "client_3_sha256": "90967581518054ac6cb9eb1885b57f978805671990675cb1354572df6b132bdf",
+    "zero_leakage_verified": true
+  },
+  "seed_44_IID_3Clients": {
+    "seed": 44,
+    "scenario": "IID_3Clients",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_44/IID_3Clients",
+    "manifest_sha256": "592226bf3350e63578e77d2574a07a386e7597b214422eec6e478007428acf69",
+    "client_1_sha256": "11e67cc6f994ae6fffba61ab53d845c2e74b0ac4926c0924bc08918bedf78724",
+    "client_2_sha256": "6074eb36a9547a77276afab7ee52ca66278fad24a2d100ced58f505d248bfb2d",
+    "client_3_sha256": "5c627c6122078ee61adbe65e26f860f7af7c27ceabb8f72d7ace5c2a6b31cb6e",
+    "zero_leakage_verified": true
+  },
+  "seed_44_non_iid_label_skew": {
+    "seed": 44,
+    "scenario": "non_iid_label_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_44/non_iid_label_skew",
+    "manifest_sha256": "b777cebe71591c344308fa69328521d7dda1ce5f955c85c4c8a4674e6e690e6b",
+    "client_1_sha256": "43f3f341a4610ed5b286995f81806d29a0d919d75e7e2453831c7bdb272ac714",
+    "client_2_sha256": "071971bc1bf2bf50c37d0a640351e301fec530bdb9bf32f503753b67298efdbe",
+    "client_3_sha256": "5d04b0fe80bfe42a25367b3b1b23450b839b75da145dc160b8250c7a25a8cfa1",
+    "zero_leakage_verified": true
+  },
+  "seed_44_non_iid_quantity_skew": {
+    "seed": 44,
+    "scenario": "non_iid_quantity_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_44/non_iid_quantity_skew",
+    "manifest_sha256": "ba97e969dc6ada26f5018f3d3868ef32dac1ff7132d801b775358167d5a395b6",
+    "client_1_sha256": "1b32804c6e789abec58c7fb23917839d686248df34ecad4c9392ed2588048710",
+    "client_2_sha256": "fc48d47c9cf249dbb917ec7afe72b8ec2fc1110cc40243a03a73a0e5cf40bc2d",
+    "client_3_sha256": "d81c03d6791ffcf436ad74b9b1998584d8124681426dfffd722e9660c70d07f3",
+    "zero_leakage_verified": true
+  },
+  "seed_44_non_iid_modality_skew": {
+    "seed": 44,
+    "scenario": "non_iid_modality_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_44/non_iid_modality_skew",
+    "manifest_sha256": "592226bf3350e63578e77d2574a07a386e7597b214422eec6e478007428acf69",
+    "client_1_sha256": "11e67cc6f994ae6fffba61ab53d845c2e74b0ac4926c0924bc08918bedf78724",
+    "client_2_sha256": "6074eb36a9547a77276afab7ee52ca66278fad24a2d100ced58f505d248bfb2d",
+    "client_3_sha256": "5c627c6122078ee61adbe65e26f860f7af7c27ceabb8f72d7ace5c2a6b31cb6e",
+    "zero_leakage_verified": true
+  },
+  "seed_44_non_iid_combined": {
+    "seed": 44,
+    "scenario": "non_iid_combined",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_44/non_iid_combined",
+    "manifest_sha256": "3d52299d9056b7d12594cebb6abda90a64ab398946406f720f8123499fde5ca5",
+    "client_1_sha256": "d7611c838b0f4feec1d0cd4b2575872cfe5b8a6d06c363b1ff3b24d307122537",
+    "client_2_sha256": "28cc054fdce15a657ae8b61f56fc383f63d1b4b5670b377d00a0faa68f02c265",
+    "client_3_sha256": "ae1844d03d2e54b58787b3a6e81684823d6bf0584d0df6fccb4f6ce012b26de1",
+    "zero_leakage_verified": true
+  },
+  "seed_45_IID_3Clients": {
+    "seed": 45,
+    "scenario": "IID_3Clients",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_45/IID_3Clients",
+    "manifest_sha256": "8d34f88a6737a6904220126ede823df5dbf62dc772a22618f636686fbb139143",
+    "client_1_sha256": "f9c7229c123f0869eb6fe702aef50575916d8c21d216792e5be7beaab3036d37",
+    "client_2_sha256": "aa65064d1cc0ef6fee28ce776743cf9cee66990246fab135ce04f1eb9ec53a55",
+    "client_3_sha256": "a6989afd4603110209e59e27f83f97da568a70c6a029be32d709737263b62f6f",
+    "zero_leakage_verified": true
+  },
+  "seed_45_non_iid_label_skew": {
+    "seed": 45,
+    "scenario": "non_iid_label_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_45/non_iid_label_skew",
+    "manifest_sha256": "0d9e7b27c8badc0beca7d5300bac68ea744529f04da57336c75de34e08cc8f70",
+    "client_1_sha256": "44655e3d44f84bd349b86928524b64546cc346fb9253ceb3370a6cebca2e4033",
+    "client_2_sha256": "3903bcb51779c41dfaabda87850a7852a8e7bfc279cbbc381d2d6ebf9f10f8d3",
+    "client_3_sha256": "a4232e82b71d44edcf49398b07e250f2ceba152aac6a187c5ba201dab1a89224",
+    "zero_leakage_verified": true
+  },
+  "seed_45_non_iid_quantity_skew": {
+    "seed": 45,
+    "scenario": "non_iid_quantity_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_45/non_iid_quantity_skew",
+    "manifest_sha256": "15a2f7a72031a8b2847457317cc96b6602e0157a8cebc3dbeea2599694ff17b6",
+    "client_1_sha256": "90b6f8f85d41ed91644a3c9f3825ee33a276a04d658409a5318e03adc1c6c8f5",
+    "client_2_sha256": "12507eca7366e89f1df3e9bd28e43e54c9ce74eb49bcb0b00127802e8cb839f6",
+    "client_3_sha256": "770ee2214fdfaad8f5348d845fb514edc0bff01ad8a85898ef83e4b2d3abec91",
+    "zero_leakage_verified": true
+  },
+  "seed_45_non_iid_modality_skew": {
+    "seed": 45,
+    "scenario": "non_iid_modality_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_45/non_iid_modality_skew",
+    "manifest_sha256": "8d34f88a6737a6904220126ede823df5dbf62dc772a22618f636686fbb139143",
+    "client_1_sha256": "f9c7229c123f0869eb6fe702aef50575916d8c21d216792e5be7beaab3036d37",
+    "client_2_sha256": "aa65064d1cc0ef6fee28ce776743cf9cee66990246fab135ce04f1eb9ec53a55",
+    "client_3_sha256": "a6989afd4603110209e59e27f83f97da568a70c6a029be32d709737263b62f6f",
+    "zero_leakage_verified": true
+  },
+  "seed_45_non_iid_combined": {
+    "seed": 45,
+    "scenario": "non_iid_combined",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_45/non_iid_combined",
+    "manifest_sha256": "3d323a8cedf3d261ee66751475b6948683ae41c259e97e8db08db0f32e5643c7",
+    "client_1_sha256": "a175fb0c8956c011c607aa986d11c4b792f8771736c725f0604dd1c612d527ea",
+    "client_2_sha256": "0ba8ae38fb2697ae19bf2d279f751021f40ae2e18479bacd1120b9ec85f7e555",
+    "client_3_sha256": "83ea264203a579e2961011aa4179faedb7956268aa9072c4d871211a70a125bb",
+    "zero_leakage_verified": true
+  },
+  "seed_46_IID_3Clients": {
+    "seed": 46,
+    "scenario": "IID_3Clients",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_46/IID_3Clients",
+    "manifest_sha256": "fb981c91d2b8e78acd9664802130980c038ce82577373fb2d068d6d439db0e21",
+    "client_1_sha256": "0f15610fac7e119d2b708990d6ff2dec77afc565169a228abd5c6a41c4248f6c",
+    "client_2_sha256": "f216eac9b51d6283ac2d2a1f6cacc731d0f812f312909623741f713726b7eddd",
+    "client_3_sha256": "f9d8ada7ea5813c43344474a2b292dfefa33658d067ec65b2747872efbd4a571",
+    "zero_leakage_verified": true
+  },
+  "seed_46_non_iid_label_skew": {
+    "seed": 46,
+    "scenario": "non_iid_label_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_46/non_iid_label_skew",
+    "manifest_sha256": "b09816a923e134fc69064635e19a73c6156eb7165fa44b69d352513c9e15d9ca",
+    "client_1_sha256": "c59787993579ace1aaf4c5e624eb3ebdb8701995434042a96276a85916cb3f05",
+    "client_2_sha256": "753ef93a73ef3fef358aa42342bc5a04582031dc778aca9442c2431ea7ce0d27",
+    "client_3_sha256": "d7df1d759fd9573851b44c603a2f3cf440bd7d854f500a5c3ee9e0c612d3ca0a",
+    "zero_leakage_verified": true
+  },
+  "seed_46_non_iid_quantity_skew": {
+    "seed": 46,
+    "scenario": "non_iid_quantity_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_46/non_iid_quantity_skew",
+    "manifest_sha256": "0dbf90b73a5338264d1c61089f8ed67fbf1fd612bb8b8ce82ded32051e3204ac",
+    "client_1_sha256": "f18b52fbec551eff2c8ff573e72645222eb1e8cd5901623400892d97f370a094",
+    "client_2_sha256": "576513e084c8aa59640ad1c5bb691490659853e5ff5d80e53c5b74dfbfdd6404",
+    "client_3_sha256": "3d37a688767f50a7d2484fda51d983799f388fc1682c7e286f87b7177c749004",
+    "zero_leakage_verified": true
+  },
+  "seed_46_non_iid_modality_skew": {
+    "seed": 46,
+    "scenario": "non_iid_modality_skew",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_46/non_iid_modality_skew",
+    "manifest_sha256": "fb981c91d2b8e78acd9664802130980c038ce82577373fb2d068d6d439db0e21",
+    "client_1_sha256": "0f15610fac7e119d2b708990d6ff2dec77afc565169a228abd5c6a41c4248f6c",
+    "client_2_sha256": "f216eac9b51d6283ac2d2a1f6cacc731d0f812f312909623741f713726b7eddd",
+    "client_3_sha256": "f9d8ada7ea5813c43344474a2b292dfefa33658d067ec65b2747872efbd4a571",
+    "zero_leakage_verified": true
+  },
+  "seed_46_non_iid_combined": {
+    "seed": 46,
+    "scenario": "non_iid_combined",
+    "partition_dir": "storage/federated/multiseed/partitions/seed_46/non_iid_combined",
+    "manifest_sha256": "d6499a19a19ed97b9a3e72ff859914325f774248332bcedd0e0f707c15b336d9",
+    "client_1_sha256": "466fec2e65bf9d4156b675c541a5b0642b368a8c1d9e4ec7ae49ad5d0c8c4b03",
+    "client_2_sha256": "6842e3a4516345a85b87666c6b43a884490f27ee2221253be76bea12f18b0d56",
+    "client_3_sha256": "fb56dc9a332a09a6708547e54352adbd7ef8e768fa04a010f2eddb04f46a6c04",
+    "zero_leakage_verified": true
+  }
+}

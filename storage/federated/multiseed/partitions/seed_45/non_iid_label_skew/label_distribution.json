@@ -1,0 +1,107 @@
+{
+  "scenario": "controlled_label_skew_v1",
+  "created_at_utc": "2026-10-20T02:45:14.956877+00:00",
+  "seed": 45,
+  "label_skew": {
+    "clients": [
+      {
+        "client": "Client 1",
+        "scenario": "Label Skew (M5.2)",
+        "total_samples": 54,
+        "positive_samples": 43,
+        "negative_samples": 11,
+        "positive_proportion": 0.7963,
+        "negative_proportion": 0.2037,
+        "positive_pct": 79.63,
+        "negative_pct": 20.37,
+        "phq8_mean": 12.4074,
+        "phq8_median": 12.0,
+        "phq8_std": 5.7872,
+        "binary_label_entropy": 0.7293
+      },
+      {
+        "client": "Client 2",
+        "scenario": "Label Skew (M5.2)",
+        "total_samples": 55,
+        "positive_samples": 2,
+        "negative_samples": 53,
+        "positive_proportion": 0.0364,
+        "negative_proportion": 0.9636,
+        "positive_pct": 3.64,
+        "negative_pct": 96.36,
+        "phq8_mean": 3.7091,
+        "phq8_median": 3.0,
+        "phq8_std": 3.66,
+        "binary_label_entropy": 0.2254
+      },
+      {
+        "client": "Client 3",
+        "scenario": "Label Skew (M5.2)",
+        "total_samples": 54,
+        "positive_samples": 5,
+        "negative_samples": 49,
+        "positive_proportion": 0.0926,
+        "negative_proportion": 0.9074,
+        "positive_pct": 9.26,
+        "negative_pct": 90.74,
+        "phq8_mean": 3.9074,
+        "phq8_median": 3.0,
+        "phq8_std": 4.0806,
+        "binary_label_entropy": 0.4451
+      }
+    ],
+    "max_min_prevalence_difference": 0.7599,
+    "mean_pairwise_js_divergence": 0.481
+  },
+  "iid_control": {
+    "clients": [
+      {
+        "client": "Client 1",
+        "scenario": "IID Control (M5.1)",
+        "total_samples": 54,
+        "positive_samples": 16,
+        "negative_samples": 38,
+        "positive_proportion": 0.2963,
+        "negative_proportion": 0.7037,
+        "positive_pct": 29.63,
+        "negative_pct": 70.37,
+        "phq8_mean": 7.0556,
+        "phq8_median": 6.0,
+        "phq8_std": 6.537,
+        "binary_label_entropy": 0.8767
+      },
+      {
+        "client": "Client 2",
+        "scenario": "IID Control (M5.1)",
+        "total_samples": 55,
+        "positive_samples": 17,
+        "negative_samples": 38,
+        "positive_proportion": 0.3091,
+        "negative_proportion": 0.6909,
+        "positive_pct": 30.91,
+        "negative_pct": 69.09,
+        "phq8_mean": 6.3818,
+        "phq8_median": 5.0,
+        "phq8_std": 5.3107,
+        "binary_label_entropy": 0.8921
+      },
+      {
+        "client": "Client 3",
+        "scenario": "IID Control (M5.1)",
+        "total_samples": 54,
+        "positive_samples": 17,
+        "negative_samples": 37,
+        "positive_proportion": 0.3148,
+        "negative_proportion": 0.6852,
+        "positive_pct": 31.48,
+        "negative_pct": 68.52,
+        "phq8_mean": 6.537,
+        "phq8_median": 3.5,
+        "phq8_std": 6.5176,
+        "binary_label_entropy": 0.8987
+      }
+    ],
+    "max_min_prevalence_difference": 0.0185,
+    "mean_pairwise_js_divergence": 0.0114
+  }
+}

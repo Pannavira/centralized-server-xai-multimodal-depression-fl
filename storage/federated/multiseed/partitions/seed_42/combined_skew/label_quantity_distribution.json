@@ -1,0 +1,134 @@
+{
+  "scenario": "controlled_non_iid_combined_skew",
+  "protocol_version": "controlled_combined_skew_v1",
+  "seed": 42,
+  "total_training_participants": 163,
+  "unique_training_participants": 163,
+  "global_positives": 50,
+  "global_negatives": 113,
+  "global_positive_prevalence": 0.3067484662576687,
+  "global_phq8_mean": 6.656441717791411,
+  "global_phq8_std": 6.11250526329462,
+  "global_phq8_median": 5.0,
+  "global_phq8_severity_bins": {
+    "none_minimal_0_4": 0.4723926380368098,
+    "mild_5_9": 0.22085889570552147,
+    "moderate_10_14": 0.15950920245398773,
+    "moderately_severe_15_19": 0.10429447852760736,
+    "severe_20_24": 0.04294478527607362
+  },
+  "max_min_quantity_ratio": 6.125,
+  "mean_pairwise_js_divergence": 0.37465069887943897,
+  "prevalence_spread_max_min": 0.6288265306122449,
+  "clients": {
+    "client_1": {
+      "client_id": 1,
+      "file": "client_1_train.csv",
+      "samples": 98,
+      "proportion_of_total": 0.6012269938650306,
+      "fedavg_weight": 0.6012269938650306,
+      "fedavg_weight_fraction": "98/163",
+      "positives": 18,
+      "negatives": 80,
+      "positive_prevalence": 0.1836734693877551,
+      "prevalence_deviation_from_global": 0.1230749968699136,
+      "binary_entropy": 0.6880476235340796,
+      "phq8_mean": 5.36734693877551,
+      "phq8_std": 5.675753740039101,
+      "phq8_median": 3.0,
+      "phq8_min": 0.0,
+      "phq8_max": 23.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.5612244897959183,
+        "mild_5_9": 0.25510204081632654,
+        "moderate_10_14": 0.08163265306122448,
+        "moderately_severe_15_19": 0.07142857142857142,
+        "severe_20_24": 0.030612244897959183
+      },
+      "modality_treatment": {
+        "treatment": "clean_full_modalities",
+        "audio": "clean",
+        "visual": "clean",
+        "text": "clean",
+        "note": "Baseline reference sensors, zero corruption"
+      },
+      "sha256": "15e47f68b0056be2f9245f90a86ca8998e5b6bfccd9e742fe62812dc1529adc3"
+    },
+    "client_2": {
+      "client_id": 2,
+      "file": "client_2_train.csv",
+      "samples": 49,
+      "proportion_of_total": 0.3006134969325153,
+      "fedavg_weight": 0.3006134969325153,
+      "fedavg_weight_fraction": "49/163",
+      "positives": 19,
+      "negatives": 30,
+      "positive_prevalence": 0.3877551020408163,
+      "prevalence_deviation_from_global": 0.0810066357831476,
+      "binary_entropy": 0.9633355456726841,
+      "phq8_mean": 7.530612244897959,
+      "phq8_std": 6.045322023461359,
+      "phq8_median": 7.0,
+      "phq8_min": 0.0,
+      "phq8_max": 22.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.3877551020408163,
+        "mild_5_9": 0.22448979591836735,
+        "moderate_10_14": 0.20408163265306123,
+        "moderately_severe_15_19": 0.12244897959183673,
+        "severe_20_24": 0.061224489795918366
+      },
+      "modality_treatment": {
+        "treatment": "audio_noisy",
+        "audio": "gaussian_noise_sigma_0.25",
+        "visual": "clean",
+        "text": "clean",
+        "note": "Gaussian perturbation sigma=0.25 on normalized audio features"
+      },
+      "sha256": "95dafd4b892ca2c241bdc877f677ac236d08b5ce85280ce21897b79ec5c1b1c6"
+    },
+    "client_3": {
+      "client_id": 3,
+      "file": "client_3_train.csv",
+      "samples": 16,
+      "proportion_of_total": 0.09815950920245399,
+      "fedavg_weight": 0.09815950920245399,
+      "fedavg_weight_fraction": "16/163",
+      "positives": 13,
+      "negatives": 3,
+      "positive_prevalence": 0.8125,
+      "prevalence_deviation_from_global": 0.5057515337423313,
+      "binary_entropy": 0.6962122601251458,
+      "phq8_mean": 11.875,
+      "phq8_std": 5.987486951969082,
+      "phq8_median": 12.5,
+      "phq8_min": 1.0,
+      "phq8_max": 20.0,
+      "phq8_severity_bins": {
+        "none_minimal_0_4": 0.1875,
+        "mild_5_9": 0.0,
+        "moderate_10_14": 0.5,
+        "moderately_severe_15_19": 0.25,
+        "severe_20_24": 0.0625
+      },
+      "modality_treatment": {
+        "treatment": "visual_degraded",
+        "audio": "clean",
+        "visual": "temporal_frame_dropout_0.20_neutral_mean_imputation",
+        "text": "clean",
+        "note": "20% temporal frame dropout with neutral mean frame imputation"
+      },
+      "sha256": "897ddb058080bb8c46b32f2e64d768e267e23b1c55ddde408e4ca561f8e21a53"
+    }
+  },
+  "shared_validation": {
+    "samples": 56,
+    "sha256": "54a1dd5c7ea1a5449df2f4e63a623858765662e5d588699b9f4efa3a6a6728ad",
+    "modality": "clean"
+  },
+  "global_test": {
+    "samples": 56,
+    "sha256": "27ea4f24fb8aa32fcbc79d06ef7d833c74de1abfc5a7fbd1f76a3d7b07884984",
+    "modality": "clean"
+  }
+}
