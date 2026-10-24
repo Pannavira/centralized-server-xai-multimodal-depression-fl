@@ -132,9 +132,10 @@ def test_flower_simulation_artifacts_integrity():
     assert runs_dir.exists(), "Direktori storage/federated/runs harus ada."
 
     runs = list(runs_dir.glob("FL-RUN-*"))
-    assert len(runs) > 0, "Harus ada minimal satu run FL yang telah selesai."
+    completed_runs = [r for r in runs if (r / "manifest.json").exists()]
+    assert len(completed_runs) > 0, "Harus ada minimal satu run FL yang telah selesai."
 
-    latest_run = sorted(runs)[-1]
+    latest_run = sorted(completed_runs)[-1]
     manifest_path = latest_run / "manifest.json"
     config_path = latest_run / "config.json"
     metrics_path = latest_run / "metrics.csv"
