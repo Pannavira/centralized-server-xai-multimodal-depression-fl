@@ -53,6 +53,8 @@ class MultimodalPartitionDataset(Dataset):
         index_df_or_path: Union[pd.DataFrame, Path, str],
         feature_base_dir: Optional[Union[Path, str]] = None,
         norm_stats_path: Optional[Union[Path, str]] = None,
+        partition_id: Optional[int] = None,
+        degradation_config: Optional[Any] = None,
     ) -> None:
         if isinstance(index_df_or_path, (str, Path)):
             self.df = pd.read_csv(index_df_or_path)
@@ -60,6 +62,8 @@ class MultimodalPartitionDataset(Dataset):
             self.df = index_df_or_path.copy().reset_index(drop=True)
 
         self.feature_base_dir = Path(feature_base_dir or DEFAULT_FEATURE_DIR)
+        self.partition_id = partition_id
+        self.degradation_config = degradation_config
 
         # Muat normalisasi Z-score jika tersedia
         self.norm_stats: Dict[str, Dict[str, np.ndarray]] = {}
@@ -98,7 +102,8 @@ class MultimodalPartitionDataset(Dataset):
                 return None
         return None
 
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
+    def _get_raw_item(self, idx: int) -> Dict[str, Any]:
+        """Memuat data sampel asli tanpa transformasi degradasi."""
         row = self.df.iloc[idx]
         pid = str(row["participant_id"])
         phq8 = float(row.get("phq8_score", row.get("depression_label", 0.0)))
@@ -152,6 +157,17 @@ class MultimodalPartitionDataset(Dataset):
 
         return item
 
+    def __getitem__(self, idx: int) -> Dict[str, Any]:
+        item = self._get_raw_item(idx)
+        if self.degradation_config is not None and self.partition_id is not None:
+            from federated.modality_degradation import apply_client_modality_treatment
+            item, _ = apply_client_modality_treatment(
+                item=item,
+                partition_id=self.partition_id,
+                config=self.degradation_config,
+            )
+        return item
+
 
 def verify_zero_leakage(
     client_training_dfs: List[pd.DataFrame],
@@ -188,10 +204,19 @@ def get_client_partition_paths(
         base_dir = Path(base_partition_dir)
         if (base_dir / scenario).exists():
             base_dir = base_dir / scenario
+    elif scenario in ("non_iid_modality_skew", "modality_skew", "controlled_modality_skew_v1"):
+        # Modality Skew menggunakan partisi persis identik dengan M5.1 IID Control
+        base_dir = Path(DEFAULT_PARTITION_DIR) / "IID_3Clients"
     elif scenario in ("non_iid_quantity_skew", "quantity_skew", "controlled_quantity_skew_v1"):
         local_qs_dir = Path("storage/federated/partitions/quantity_skew_seed42")
         if local_qs_dir.exists():
             base_dir = local_qs_dir
+        else:
+            base_dir = Path(DEFAULT_PARTITION_DIR) / scenario
+    elif scenario in ("non_iid_combined", "combined_skew", "controlled_combined_skew_v1"):
+        local_comb_dir = Path("storage/federated/partitions/combined_skew_seed42")
+        if local_comb_dir.exists():
+            base_dir = local_comb_dir
         else:
             base_dir = Path(DEFAULT_PARTITION_DIR) / scenario
     elif scenario in ("non_iid_label_skew", "label_skew", "controlled_label_skew_v1"):
@@ -228,14 +253,34 @@ def build_client_dataloaders(
     base_partition_dir: Optional[Union[Path, str]] = None,
     feature_base_dir: Optional[Union[Path, str]] = None,
     shuffle_train: bool = True,
+    degradation_config: Optional[Any] = None,
 ) -> Tuple[DataLoader, DataLoader, MultimodalPartitionDataset, MultimodalPartitionDataset]:
     """
     Membangun DataLoader training dan validation untuk klien tertentu.
+    Untuk skenario Modality Skew, degradasi diaplikasikan HANYA pada train_ds.
     """
     train_path, val_path = get_client_partition_paths(partition_id, scenario, base_partition_dir)
 
-    train_ds = MultimodalPartitionDataset(train_path, feature_base_dir=feature_base_dir)
-    val_ds = MultimodalPartitionDataset(val_path, feature_base_dir=feature_base_dir)
+    is_modality = scenario in (
+        "non_iid_modality_skew", "modality_skew", "controlled_modality_skew_v1",
+        "non_iid_combined", "combined_skew", "controlled_combined_skew_v1",
+    )
+    if is_modality and degradation_config is None:
+        from federated.modality_degradation import ModalityDegradationConfig
+        degradation_config = ModalityDegradationConfig(scenario=scenario)
+
+    train_ds = MultimodalPartitionDataset(
+        train_path,
+        feature_base_dir=feature_base_dir,
+        partition_id=partition_id if is_modality else None,
+        degradation_config=degradation_config if is_modality else None,
+    )
+    val_ds = MultimodalPartitionDataset(
+        val_path,
+        feature_base_dir=feature_base_dir,
+        partition_id=None,
+        degradation_config=None,
+    )
 
     train_loader = DataLoader(
         train_ds,
@@ -307,6 +352,14 @@ def generate_dataset_manifest(
             base_dir = p_dir / scenario
         else:
             base_dir = p_dir
+    elif scenario in ("non_iid_modality_skew", "modality_skew", "controlled_modality_skew_v1"):
+        base_dir = Path(DEFAULT_PARTITION_DIR) / "IID_3Clients"
+    elif scenario in ("non_iid_combined", "combined_skew", "controlled_combined_skew_v1"):
+        local_comb_dir = Path("storage/federated/partitions/combined_skew_seed42")
+        if local_comb_dir.exists():
+            base_dir = local_comb_dir
+        else:
+            base_dir = Path(DEFAULT_PARTITION_DIR) / scenario
     elif scenario in ("non_iid_quantity_skew", "quantity_skew", "controlled_quantity_skew_v1"):
         local_qs_dir = Path("storage/federated/partitions/quantity_skew_seed42")
         if local_qs_dir.exists():

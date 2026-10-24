@@ -75,11 +75,29 @@ def train(message: Message, context: Context) -> Message:
     partition_dir = str(run_cfg.get("partition-dir", "")).strip() or None
 
     # 5. Bangun DataLoader hanya untuk partisi lokal klien ini
+    deg_cfg = None
+    is_modality = scenario in (
+        "non_iid_modality_skew", "modality_skew", "controlled_modality_skew_v1",
+        "non_iid_combined", "combined_skew", "controlled_combined_skew_v1",
+    )
+    if is_modality:
+        from federated.modality_degradation import ModalityDegradationConfig
+        audio_sigma = float(run_cfg.get("audio-noise-sigma", 0.25))
+        visual_dropout = float(run_cfg.get("visual-frame-dropout-rate", 0.20))
+        seed_cfg = int(run_cfg.get("seed", 42))
+        deg_cfg = ModalityDegradationConfig(
+            scenario=scenario,
+            audio_noise_sigma=audio_sigma,
+            visual_frame_dropout_rate=visual_dropout,
+            seed=seed_cfg,
+        )
+
     train_loader, val_loader, train_ds, val_ds = build_client_dataloaders(
         partition_id=partition_id,
         batch_size=batch_size,
         scenario=scenario,
         base_partition_dir=partition_dir,
+        degradation_config=deg_cfg,
     )
     num_samples = len(train_ds)
 

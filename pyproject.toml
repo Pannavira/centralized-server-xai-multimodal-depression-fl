@@ -29,12 +29,16 @@ local-epochs = 2
 batch-size = 16
 learning-rate = 0.0001
 seed = 42
-scenario = "non_iid_quantity_skew"
-scientific-status = "controlled_experiment_quantity_skew"
+scenario = "non_iid_combined"
+scientific-status = "controlled_experiment_combined_skew"
+audio-noise-sigma = 0.25
+visual-frame-dropout-rate = 0.20
 resume = false
 resume-run-id = ""
-initial-checkpoint = "storage/federated/runs/FL-RUN-20261016-130403-45D587/rounds/round_000/model.pt"
+initial-checkpoint = ""
 baseline-control-run = "FL-RUN-20261016-130403-45D587"
+partition-dir = ""
+initial-checkpoint-sha = ""
 
 
 #######################################################################

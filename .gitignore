@@ -15,3 +15,9 @@ htmlcov/
 
 # Federated learning run checkpoint weights
 storage/federated/runs/
+
+# Federated learning multi-seed initial model checkpoint weights
+storage/federated/multiseed/initializations/**/model.pt
+
+# Ad-hoc test configs in multiseed root
+storage/federated/multiseed/*.toml

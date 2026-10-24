@@ -1,0 +1,75 @@
+{
+  "project_name": "FED-MIND",
+  "milestone": "5.6",
+  "title": "Cross-Scenario Multi-Seed Validation and Scientific Statistical Analysis",
+  "target_seeds": [42, 43, 44, 45, 46],
+  "scenarios": [
+    {
+      "id": "IID_3Clients",
+      "display_name": "FL-IID",
+      "prefix": "FL-RUN",
+      "partition_dir_pattern": "storage/federated/multiseed/partitions/seed_{seed}/IID_3Clients",
+      "scientific_status": "multiseed_fl_iid"
+    },
+    {
+      "id": "label_skew",
+      "display_name": "Non-IID Label Skew",
+      "prefix": "FL-LABEL-SKEW",
+      "partition_dir_pattern": "storage/federated/multiseed/partitions/seed_{seed}/label_skew",
+      "scientific_status": "multiseed_fl_label_skew"
+    },
+    {
+      "id": "quantity_skew",
+      "display_name": "Non-IID Quantity Skew",
+      "prefix": "FL-QUANTITY-SKEW",
+      "partition_dir_pattern": "storage/federated/multiseed/partitions/seed_{seed}/quantity_skew",
+      "scientific_status": "multiseed_fl_quantity_skew"
+    },
+    {
+      "id": "modality_skew",
+      "display_name": "Non-IID Modality Skew",
+      "prefix": "FL-MODALITY-SKEW",
+      "partition_dir_pattern": "storage/federated/multiseed/partitions/seed_{seed}/modality_skew",
+      "scientific_status": "multiseed_fl_modality_skew"
+    },
+    {
+      "id": "combined_skew",
+      "display_name": "Non-IID Combined Skew",
+      "prefix": "FL-COMBINED-NONIID",
+      "partition_dir_pattern": "storage/federated/multiseed/partitions/seed_{seed}/combined_skew",
+      "scientific_status": "multiseed_fl_combined_skew"
+    }
+  ],
+  "historical_seed_42_runs": {
+    "IID_3Clients": "FL-RUN-20261016-130403-45D587",
+    "label_skew": "FL-LABEL-SKEW-20261016-141108-7865D4",
+    "quantity_skew": "FL-QUANTITY-SKEW-20261019-110746-3A4BFF",
+    "modality_skew": "FL-MODALITY-SKEW-20261019-142242-CA6D11",
+    "combined_skew": "FL-COMBINED-NONIID-20261019-154311-CCF7B4"
+  },
+  "training_hyperparameters": {
+    "num_server_rounds": 50,
+    "fraction_train": 1.0,
+    "min_train_nodes": 3,
+    "min_available_nodes": 3,
+    "local_epochs": 2,
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "loss": "ClassWeightedMSELoss",
+    "positive_weight_multiplier": 2.5,
+    "false_negative_penalty": 2.0,
+    "lr_scheduler": "CosineAnnealingLR",
+    "aggregation": "FedAvg",
+    "weighted_by": "num-examples",
+    "audio_noise_sigma": 0.25,
+    "visual_frame_dropout_rate": 0.20
+  },
+  "paths": {
+    "initializations_dir": "storage/federated/multiseed/initializations",
+    "partitions_dir": "storage/federated/multiseed/partitions",
+    "m5_6_output_dir": "storage/federated/multiseed/m5_6",
+    "historical_runs_dir": "storage/federated/runs",
+    "multiseed_runs_dir": "storage/federated/runs"
+  }
+}

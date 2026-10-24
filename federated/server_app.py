@@ -17,12 +17,15 @@ Fitur:
 - Pembuatan kurva konvergensi visual otomatis (plots/).
 """
 
+import json
 import logging
 import platform
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+import matplotlib
+matplotlib.use("Agg")
 import torch
 from flwr.app.message.arrayrecord import ArrayRecord
 from flwr.app.message.configrecord import ConfigRecord
@@ -131,9 +134,17 @@ def main(grid: Grid, context: Context) -> None:
     learning_rate = float(run_cfg.get("learning-rate", 1e-4))
     
     scenario = str(run_cfg.get("scenario", "IID_3Clients")).strip()
+    is_combined_skew = scenario in ("non_iid_combined", "combined_skew", "controlled_combined_skew_v1")
     is_label_skew = scenario in ("non_iid_label_skew", "label_skew", "controlled_label_skew_v1")
     is_quantity_skew = scenario in ("non_iid_quantity_skew", "quantity_skew", "controlled_quantity_skew_v1")
-    if is_quantity_skew:
+    is_modality_skew = scenario in ("non_iid_modality_skew", "modality_skew", "controlled_modality_skew_v1")
+    if is_combined_skew:
+        run_prefix = "FL-COMBINED-NONIID"
+        default_status = "controlled_experiment_combined_skew"
+    elif is_modality_skew:
+        run_prefix = "FL-MODALITY-SKEW"
+        default_status = "controlled_experiment_modality_skew"
+    elif is_quantity_skew:
         run_prefix = "FL-QUANTITY-SKEW"
         default_status = "controlled_experiment_quantity_skew"
     elif is_label_skew:
@@ -212,17 +223,135 @@ def main(grid: Grid, context: Context) -> None:
         run_manager.save_environment(env_info)
 
         # Simpan manifest dataset (zero-leakage assertion)
+        partition_dir_req = str(run_cfg.get("partition-dir", "")).strip() or None
         try:
-            ds_manifest = generate_dataset_manifest(scenario=scenario)
+            ds_manifest = generate_dataset_manifest(scenario=scenario, base_partition_dir=partition_dir_req)
             run_manager.save_dataset_manifest(ds_manifest)
             logger.info(f"[Dataset Manifest] Zero Leakage Terkonfirmasi: {ds_manifest['zero_leakage_verified']}")
         except Exception as e:
             logger.error(f"[Dataset Manifest Error] {e}")
 
-        # Salin artefak partisi jika skenario quantity skew atau label skew
-        if is_quantity_skew:
+        # Salin artefak partisi jika skenario quantity skew, label skew, modality skew, atau combined skew
+        if is_combined_skew:
             import shutil
-            part_dir = Path("storage/federated/partitions/quantity_skew_seed42")
+            from federated.modality_degradation import (
+                ModalityDegradationConfig,
+                compute_degradation_diagnostics,
+                plot_modality_assignment,
+                plot_degradation_diagnostics,
+            )
+            from federated.data import build_client_dataloaders
+            if partition_dir_req and Path(partition_dir_req).exists():
+                part_dir = Path(partition_dir_req)
+            else:
+                part_dir = Path("storage/federated/partitions/combined_skew_seed42")
+            for fname in [
+                "partition_manifest.json",
+                "combined_skew_distribution.json",
+                "combined_skew_distribution.csv",
+                "label_quantity_distribution.json",
+                "label_quantity_distribution.csv",
+            ]:
+                src_f = part_dir / fname
+                if src_f.exists():
+                    shutil.copy2(src_f, run_manager.run_dir / fname)
+            part_plots = part_dir / "plots"
+            if part_plots.exists():
+                for p_f in part_plots.glob("*.png"):
+                    shutil.copy2(p_f, run_manager.plots_dir / p_f.name)
+
+            audio_sigma = float(run_cfg.get("audio-noise-sigma", 0.25))
+            visual_dropout = float(run_cfg.get("visual-frame-dropout-rate", 0.20))
+            deg_cfg = ModalityDegradationConfig(
+                scenario=scenario,
+                audio_noise_sigma=audio_sigma,
+                visual_frame_dropout_rate=visual_dropout,
+                seed=seed,
+            )
+            deg_manifest = {
+                "scenario": scenario,
+                "protocol_version": deg_cfg.protocol_version,
+                "seed": deg_cfg.seed,
+                "audio_noise_sigma": deg_cfg.audio_noise_sigma,
+                "visual_frame_dropout_rate": deg_cfg.visual_frame_dropout_rate,
+                "client_treatments": {
+                    "client_1": {"samples": 98, "audio": "clean", "visual": "clean", "text": "clean"},
+                    "client_2": {"samples": 49, "audio": f"gaussian_noise_sigma_{deg_cfg.audio_noise_sigma}", "visual": "clean", "text": "clean"},
+                    "client_3": {"samples": 16, "audio": "clean", "visual": f"frame_dropout_{deg_cfg.visual_frame_dropout_rate}", "text": "clean"},
+                },
+                "shared_validation": {"samples": 56, "audio": "clean", "visual": "clean", "text": "clean"},
+                "global_test": {"samples": 56, "audio": "clean", "visual": "clean", "text": "clean"},
+            }
+            with open(run_manager.run_dir / "modality_degradation_manifest.json", "w", encoding="utf-8") as f:
+                json.dump(deg_manifest, f, indent=2)
+
+            plot_modality_assignment(run_manager.plots_dir / "modality_assignment.png")
+
+            client_datasets = {}
+            for c_id in range(3):
+                _, _, c_train_ds, _ = build_client_dataloaders(partition_id=c_id, scenario=scenario, base_partition_dir=partition_dir_req, degradation_config=deg_cfg)
+                client_datasets[c_id] = c_train_ds
+            deg_diag = compute_degradation_diagnostics(client_datasets, config=deg_cfg)
+            df_diag = deg_diag.pop("diagnostics_dataframe")
+            df_diag.to_csv(run_manager.run_dir / "degradation_diagnostics.csv", index=False)
+            with open(run_manager.run_dir / "degradation_diagnostics.json", "w", encoding="utf-8") as f:
+                json.dump(deg_diag, f, indent=2)
+            plot_degradation_diagnostics(deg_diag, run_manager.plots_dir / "degradation_diagnostics.png")
+
+        elif is_modality_skew:
+            from federated.modality_degradation import (
+                ModalityDegradationConfig,
+                compute_degradation_diagnostics,
+                plot_modality_assignment,
+                plot_degradation_diagnostics,
+            )
+            from federated.data import build_client_dataloaders
+            audio_sigma = float(run_cfg.get("audio-noise-sigma", 0.25))
+            visual_dropout = float(run_cfg.get("visual-frame-dropout-rate", 0.20))
+            deg_cfg = ModalityDegradationConfig(
+                scenario=scenario,
+                audio_noise_sigma=audio_sigma,
+                visual_frame_dropout_rate=visual_dropout,
+                seed=seed,
+            )
+            deg_manifest = {
+                "scenario": scenario,
+                "protocol_version": deg_cfg.protocol_version,
+                "seed": deg_cfg.seed,
+                "audio_noise_sigma": deg_cfg.audio_noise_sigma,
+                "visual_frame_dropout_rate": deg_cfg.visual_frame_dropout_rate,
+                "client_treatments": {
+                    "client_1": {"samples": 54, "audio": "clean", "visual": "clean", "text": "clean"},
+                    "client_2": {"samples": 55, "audio": f"gaussian_noise_sigma_{deg_cfg.audio_noise_sigma}", "visual": "clean", "text": "clean"},
+                    "client_3": {"samples": 54, "audio": "clean", "visual": f"frame_dropout_{deg_cfg.visual_frame_dropout_rate}", "text": "clean"},
+                },
+                "shared_validation": {"samples": 56, "audio": "clean", "visual": "clean", "text": "clean"},
+                "global_test": {"samples": 56, "audio": "clean", "visual": "clean", "text": "clean"},
+            }
+            with open(run_manager.run_dir / "modality_degradation_manifest.json", "w", encoding="utf-8") as f:
+                json.dump(deg_manifest, f, indent=2)
+
+            # Generate modality_assignment.png
+            plot_modality_assignment(run_manager.plots_dir / "modality_assignment.png")
+
+            # Compute and save degradation diagnostics
+            client_datasets = {}
+            for c_id in range(3):
+                _, _, c_train_ds, _ = build_client_dataloaders(partition_id=c_id, scenario=scenario, base_partition_dir=partition_dir_req, degradation_config=deg_cfg)
+                client_datasets[c_id] = c_train_ds
+            deg_diag = compute_degradation_diagnostics(client_datasets, config=deg_cfg)
+            df_diag = deg_diag.pop("diagnostics_dataframe")
+            df_diag.to_csv(run_manager.run_dir / "degradation_diagnostics.csv", index=False)
+            with open(run_manager.run_dir / "degradation_diagnostics.json", "w", encoding="utf-8") as f:
+                json.dump(deg_diag, f, indent=2)
+            plot_degradation_diagnostics(deg_diag, run_manager.plots_dir / "degradation_diagnostics.png")
+
+        elif is_quantity_skew:
+            import shutil
+            if partition_dir_req and Path(partition_dir_req).exists():
+                part_dir = Path(partition_dir_req)
+            else:
+                part_dir = Path("storage/federated/partitions/quantity_skew_seed42")
             for fname in ["partition_manifest.json", "quantity_distribution.json", "quantity_distribution.csv"]:
                 src_f = part_dir / fname
                 if src_f.exists():
@@ -233,7 +362,10 @@ def main(grid: Grid, context: Context) -> None:
                     shutil.copy2(p_f, run_manager.plots_dir / p_f.name)
         elif is_label_skew:
             import shutil
-            part_dir = Path("storage/federated/partitions/label_skew_seed42")
+            if partition_dir_req and Path(partition_dir_req).exists():
+                part_dir = Path(partition_dir_req)
+            else:
+                part_dir = Path("storage/federated/partitions/label_skew_seed42")
             for fname in ["partition_manifest.json", "label_distribution.json", "label_distribution.csv"]:
                 src_f = part_dir / fname
                 if src_f.exists():
@@ -250,17 +382,37 @@ def main(grid: Grid, context: Context) -> None:
         logger.info(f"[RESUME] Berhasil memuat bobot model dari round_{start_round_offset:03d}/model.pt")
     else:
         init_ckpt_req = str(run_cfg.get("initial-checkpoint", "")).strip()
-        if not init_ckpt_req and (is_label_skew or is_quantity_skew):
-            init_ckpt_req = "storage/federated/runs/FL-RUN-20261016-130403-45D587/rounds/round_000/model.pt"
+        expected_sha = str(run_cfg.get("initial-checkpoint-sha", "")).strip()
+        if not init_ckpt_req:
+            seed_init_ckpt = Path(f"storage/federated/multiseed/initializations/seed_{seed}/round_000/model.pt")
+            if seed_init_ckpt.exists():
+                init_ckpt_req = str(seed_init_ckpt)
+            elif (is_label_skew or is_quantity_skew or is_modality_skew or is_combined_skew):
+                init_ckpt_req = "storage/federated/runs/FL-RUN-20261016-130403-45D587/rounds/round_000/model.pt"
+
+        if not expected_sha and init_ckpt_req:
+            init_json = Path("storage/federated/multiseed/m5_6/seed_initializations.json")
+            if init_json.exists():
+                try:
+                    with open(init_json, "r", encoding="utf-8") as f:
+                        init_data = json.load(f)
+                    expected_sha = init_data.get(f"seed_{seed}", {}).get("checkpoint_sha256", "")
+                except Exception:
+                    pass
 
         if init_ckpt_req and Path(init_ckpt_req).exists():
             from federated.checkpointing import compute_file_sha256
             ckpt_sha = compute_file_sha256(init_ckpt_req)
-            logger.info(f"[Initial Model] Memuat dari checkpoint kontrol M5.1: {init_ckpt_req}")
+            logger.info(f"[Initial Model] Memuat dari checkpoint kontrol: {init_ckpt_req}")
             logger.info(f"[Initial Model] SHA-256 Checksum: {ckpt_sha}")
-            assert ckpt_sha == "a1c052476e613d9d6795e8246b54b0bb86f8d5ba65e7dde8d20ca9f703808973", (
-                f"CRITICAL: Round 0 SHA-256 mismatch! {ckpt_sha} != a1c052476e..."
-            )
+            if expected_sha:
+                assert ckpt_sha == expected_sha, (
+                    f"CRITICAL: Round 0 SHA-256 mismatch! {ckpt_sha} != {expected_sha}"
+                )
+            elif seed == 42:
+                assert ckpt_sha == "a1c052476e613d9d6795e8246b54b0bb86f8d5ba65e7dde8d20ca9f703808973", (
+                    f"CRITICAL: Round 0 SHA-256 mismatch! {ckpt_sha} != a1c052476e..."
+                )
             initial_state_dict = torch.load(init_ckpt_req, map_location="cpu", weights_only=False)
             initial_model = build_model()
             initial_model.load_state_dict(initial_state_dict, strict=True)
@@ -357,7 +509,27 @@ def main(grid: Grid, context: Context) -> None:
 
         # Jika sudah mencapai ronde terakhir, jalankan komparasi
         if actual_round == num_server_rounds:
-            if is_quantity_skew:
+            if is_combined_skew:
+                from federated.comparison import generate_combined_skew_comparison
+                try:
+                    generate_combined_skew_comparison(
+                        combined_skew_run_dir=run_manager.run_dir,
+                        iid_control_run_dir=Path("storage/federated/runs") / baseline_control_run,
+                    )
+                    logger.info("[IID vs Combined Non-IID Comparison] Berhasil disimpan ke iid_comparison.json, scenario_comparison.json, dan plots!")
+                except Exception as e:
+                    logger.warning(f"[Combined Non-IID Comparison Warning] {e}")
+            elif is_modality_skew:
+                from federated.comparison import generate_iid_vs_modality_skew_comparison
+                try:
+                    generate_iid_vs_modality_skew_comparison(
+                        modality_skew_run_dir=run_manager.run_dir,
+                        iid_control_run_dir=Path("storage/federated/runs") / baseline_control_run,
+                    )
+                    logger.info("[IID vs Modality Skew Comparison] Berhasil disimpan ke iid_comparison.json dan plots!")
+                except Exception as e:
+                    logger.warning(f"[IID vs Modality Skew Comparison Warning] {e}")
+            elif is_quantity_skew:
                 from federated.comparison import generate_iid_vs_quantity_skew_comparison
                 try:
                     generate_iid_vs_quantity_skew_comparison(
